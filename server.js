@@ -39,7 +39,7 @@ const BookSchema = new mongoose.Schema({
   title: String,
   author: String,
 });
-const Book = mongoose.model("Book", BookSchema);
+const Book = mongoose.model("Book", BookSchema, "book_collection");
 
 // Route för att hämta alla böcker
 app.get("/books", async (req, res) => {
