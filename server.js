@@ -14,6 +14,17 @@ app.use(
   express.static(path.join(process.cwd(), "favicon.ico"))
 );
 
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        imgSrc: ["'self'", "data:", "https://books-1-cbvn.onrender.com"],
+      },
+    },
+  })
+);
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
