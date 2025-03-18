@@ -35,6 +35,22 @@ app.get("/", (req, res) => {
   res.send("API is running!");
 });
 
+const BookSchema = new mongoose.Schema({
+  title: String,
+  author: String,
+});
+const Book = mongoose.model("Book", BookSchema);
+
+// Route för att hämta alla böcker
+app.get("/books", async (req, res) => {
+  try {
+    const books = await Book.find();
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 app.get("/items", async (req, res) => {
   const items = await Item.find();
   res.json(items);
