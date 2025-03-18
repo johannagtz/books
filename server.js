@@ -5,12 +5,13 @@ import dotenv from "dotenv";
 dotenv.config();
 const app = express();
 app.use(express.json());
+app.use(
+  "/favicon.ico",
+  express.static(path.join(process.cwd(), "favicon.ico"))
+);
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
