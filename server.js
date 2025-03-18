@@ -10,10 +10,7 @@ const app = express();
 app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(
-  "/favicon.ico",
-  express.static(path.join(process.cwd(), "favicon.ico"))
-);
+app.use("/favicon.ico", express.static(path.join(__dirname, "favicon.ico")));
 
 app.use(
   helmet({
@@ -33,6 +30,10 @@ mongoose
 
 const ItemSchema = new mongoose.Schema({ name: String });
 const Item = mongoose.model("Item", ItemSchema);
+
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
 
 app.get("/items", async (req, res) => {
   const items = await Item.find();
